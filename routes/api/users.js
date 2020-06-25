@@ -3,10 +3,9 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
-const config = require("../../config/default.json")
-
+const config = require('config');
 
 //@route POST api/user
 //@desc Register user
@@ -58,22 +57,19 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
-        { expiresIn: '5 days' },
+        config.get("jwtSecret"),
+        { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
         }
       );
-
-
-
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Server Error");
