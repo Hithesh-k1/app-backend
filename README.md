@@ -1,5 +1,10 @@
-# Install server dependencies
-npm i
+### Install server dependencies
 
-# run express application
+```
+npm i
+```
+### run express application
+
+```
 npm run server
+```
